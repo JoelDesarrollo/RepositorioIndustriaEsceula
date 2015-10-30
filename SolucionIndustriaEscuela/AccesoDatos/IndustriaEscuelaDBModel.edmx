@@ -1,0 +1,660 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="IndustriaEscuelaDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="IndustriaEscuelaDBModelStoreContainer">
+    <EntitySet Name="Usuarios" EntityType="IndustriaEscuelaDBModel.Store.Usuarios" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Roles" EntityType="IndustriaEscuelaDBModel.Store.Roles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Acciones" EntityType="IndustriaEscuelaDBModel.Store.Acciones" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Personas" EntityType="IndustriaEscuelaDBModel.Store.Personas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CuentasCorrientes" EntityType="IndustriaEscuelaDBModel.Store.CuentasCorrientes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Productos" EntityType="IndustriaEscuelaDBModel.Store.Productos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Ventas" EntityType="IndustriaEscuelaDBModel.Store.Ventas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Insumos" EntityType="IndustriaEscuelaDBModel.Store.Insumos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DetallesVentas" EntityType="IndustriaEscuelaDBModel.Store.DetallesVentas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Personas_Cliente" EntityType="IndustriaEscuelaDBModel.Store.Personas_Cliente" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AccionesPorRol" EntityType="IndustriaEscuelaDBModel.Store.AccionesPorRol" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="RolesDeUsuario" Association="IndustriaEscuelaDBModel.Store.RolesDeUsuario">
+      <End Role="Rol" EntitySet="Roles" />
+      <End Role="Usuario" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AccionesPorRol_Rol" Association="IndustriaEscuelaDBModel.Store.FK_AccionesPorRol_Rol">
+      <End Role="Rol" EntitySet="Roles" />
+      <End Role="AccionesPorRol" EntitySet="AccionesPorRol" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AccionesPorRol_Accion" Association="IndustriaEscuelaDBModel.Store.FK_AccionesPorRol_Accion">
+      <End Role="Accion" EntitySet="Acciones" />
+      <End Role="AccionesPorRol" EntitySet="AccionesPorRol" />
+    </AssociationSet>
+    <AssociationSet Name="CuentaCorrienteDelCliente" Association="IndustriaEscuelaDBModel.Store.CuentaCorrienteDelCliente">
+      <End Role="Cliente" EntitySet="Personas_Cliente" />
+      <End Role="CuentaCorriente" EntitySet="CuentasCorrientes" />
+    </AssociationSet>
+    <AssociationSet Name="DetalleVentaDeVenta" Association="IndustriaEscuelaDBModel.Store.DetalleVentaDeVenta">
+      <End Role="Venta" EntitySet="Ventas" />
+      <End Role="DetalleVenta" EntitySet="DetallesVentas" />
+    </AssociationSet>
+    <AssociationSet Name="DetalleVentaProducto" Association="IndustriaEscuelaDBModel.Store.DetalleVentaProducto">
+      <End Role="DetalleVenta" EntitySet="DetallesVentas" />
+      <End Role="Producto" EntitySet="Productos" />
+    </AssociationSet>
+    <AssociationSet Name="InsumosDelProducto" Association="IndustriaEscuelaDBModel.Store.InsumosDelProducto">
+      <End Role="Producto" EntitySet="Productos" />
+      <End Role="Insumo" EntitySet="Insumos" />
+    </AssociationSet>
+    <AssociationSet Name="UsuarioVenta" Association="IndustriaEscuelaDBModel.Store.UsuarioVenta">
+      <End Role="Usuario" EntitySet="Usuarios" />
+      <End Role="Venta" EntitySet="Ventas" />
+    </AssociationSet>
+    <AssociationSet Name="ClienteCompra" Association="IndustriaEscuelaDBModel.Store.ClienteCompra">
+      <End Role="Cliente" EntitySet="Personas_Cliente" />
+      <End Role="Venta" EntitySet="Ventas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cliente_inherits_Persona" Association="IndustriaEscuelaDBModel.Store.FK_Cliente_inherits_Persona">
+      <End Role="Persona" EntitySet="Personas" />
+      <End Role="Cliente" EntitySet="Personas_Cliente" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="Contrasenia" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="Habilitado" Type="bit" Nullable="false" />
+    <Property Name="RolId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Acciones">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Personas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Dni" Type="nvarchar" Nullable="true" MaxLength="10" />
+    <Property Name="Domicilio" Type="nvarchar" Nullable="true" MaxLength="100" />
+    <Property Name="Telefono" Type="nvarchar" Nullable="true" MaxLength="15" />
+    <Property Name="Email" Type="nvarchar" Nullable="true" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="CuentasCorrientes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TipoMovimiento" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Monto" Type="decimal" Nullable="false" Precision="6" Scale="2" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" Nullable="true" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Productos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="PrecioUnitario" Type="decimal" Nullable="false" Precision="6" Scale="2" />
+    <Property Name="UnidadMedida" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Stock" Type="decimal" Nullable="true" Precision="6" Scale="2" />
+    <Property Name="Habilitado" Type="bit" Nullable="false" />
+    <Property Name="DetalleVenta_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ventas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="Total" Type="decimal" Nullable="false" Precision="6" Scale="2" />
+    <Property Name="UsuarioId" Type="int" Nullable="false" />
+    <Property Name="ClienteId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Insumos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Stock" Type="decimal" Nullable="true" Precision="6" Scale="2" />
+    <Property Name="Habilitado" Type="bit" Nullable="false" />
+    <Property Name="UnidadMedida" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="ProductoId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DetallesVentas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cantidad" Type="decimal" Nullable="false" Precision="6" Scale="2" />
+    <Property Name="VentaId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Personas_Cliente">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Habilitado" Type="bit" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CuentaCorriente_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AccionesPorRol">
+    <Key>
+      <PropertyRef Name="Roles_Id" />
+      <PropertyRef Name="Acciones_Id" />
+    </Key>
+    <Property Name="Roles_Id" Type="int" Nullable="false" />
+    <Property Name="Acciones_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="RolesDeUsuario">
+    <End Role="Rol" Type="IndustriaEscuelaDBModel.Store.Roles" Multiplicity="1" />
+    <End Role="Usuario" Type="IndustriaEscuelaDBModel.Store.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="RolId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CuentaCorrienteDelCliente">
+    <End Role="Cliente" Type="IndustriaEscuelaDBModel.Store.Personas_Cliente" Multiplicity="*" />
+    <End Role="CuentaCorriente" Type="IndustriaEscuelaDBModel.Store.CuentasCorrientes" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="CuentaCorriente">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cliente">
+        <PropertyRef Name="CuentaCorriente_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DetalleVentaDeVenta">
+    <End Role="Venta" Type="IndustriaEscuelaDBModel.Store.Ventas" Multiplicity="1" />
+    <End Role="DetalleVenta" Type="IndustriaEscuelaDBModel.Store.DetallesVentas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Venta">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DetalleVenta">
+        <PropertyRef Name="VentaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DetalleVentaProducto">
+    <End Role="DetalleVenta" Type="IndustriaEscuelaDBModel.Store.DetallesVentas" Multiplicity="1" />
+    <End Role="Producto" Type="IndustriaEscuelaDBModel.Store.Productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DetalleVenta">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="DetalleVenta_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InsumosDelProducto">
+    <End Role="Producto" Type="IndustriaEscuelaDBModel.Store.Productos" Multiplicity="1" />
+    <End Role="Insumo" Type="IndustriaEscuelaDBModel.Store.Insumos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Insumo">
+        <PropertyRef Name="ProductoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsuarioVenta">
+    <End Role="Usuario" Type="IndustriaEscuelaDBModel.Store.Usuarios" Multiplicity="1" />
+    <End Role="Venta" Type="IndustriaEscuelaDBModel.Store.Ventas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Venta">
+        <PropertyRef Name="UsuarioId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ClienteCompra">
+    <End Role="Cliente" Type="IndustriaEscuelaDBModel.Store.Personas_Cliente" Multiplicity="1" />
+    <End Role="Venta" Type="IndustriaEscuelaDBModel.Store.Ventas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Venta">
+        <PropertyRef Name="ClienteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AccionesPorRol_Rol">
+    <End Role="Rol" Type="IndustriaEscuelaDBModel.Store.Roles" Multiplicity="1" />
+    <End Role="AccionesPorRol" Type="IndustriaEscuelaDBModel.Store.AccionesPorRol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AccionesPorRol">
+        <PropertyRef Name="Roles_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AccionesPorRol_Accion">
+    <End Role="AccionesPorRol" Type="IndustriaEscuelaDBModel.Store.AccionesPorRol" Multiplicity="*" />
+    <End Role="Accion" Type="IndustriaEscuelaDBModel.Store.Acciones" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Accion">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AccionesPorRol">
+        <PropertyRef Name="Acciones_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cliente_inherits_Persona">
+    <End Role="Persona" Type="IndustriaEscuelaDBModel.Store.Personas" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Cliente" Type="IndustriaEscuelaDBModel.Store.Personas_Cliente" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Persona">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cliente">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="IndustriaEscuelaDBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="IndustriaEscuelaDBModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Usuarios" EntityType="IndustriaEscuelaDBModel.Usuario" />
+          <EntitySet Name="Roles" EntityType="IndustriaEscuelaDBModel.Rol" />
+          <AssociationSet Name="RolesDeUsuario" Association="IndustriaEscuelaDBModel.RolesDeUsuario">
+            <End Role="Rol" EntitySet="Roles" />
+            <End Role="Usuario" EntitySet="Usuarios" />
+          </AssociationSet>
+          <EntitySet Name="Acciones" EntityType="IndustriaEscuelaDBModel.Accion" />
+          <EntitySet Name="Personas" EntityType="IndustriaEscuelaDBModel.Persona" />
+          <EntitySet Name="CuentasCorrientes" EntityType="IndustriaEscuelaDBModel.CuentaCorriente" />
+          <EntitySet Name="Productos" EntityType="IndustriaEscuelaDBModel.Producto" />
+          <EntitySet Name="Ventas" EntityType="IndustriaEscuelaDBModel.Venta" />
+          <EntitySet Name="Insumos" EntityType="IndustriaEscuelaDBModel.Insumo" />
+          <EntitySet Name="DetallesVentas" EntityType="IndustriaEscuelaDBModel.DetalleVenta" />
+          <AssociationSet Name="AccionesPorRol" Association="IndustriaEscuelaDBModel.AccionesPorRol">
+            <End Role="Rol" EntitySet="Roles" />
+            <End Role="Accion" EntitySet="Acciones" />
+          </AssociationSet>
+          <AssociationSet Name="CuentaCorrienteDelCliente" Association="IndustriaEscuelaDBModel.CuentaCorrienteDelCliente">
+            <End Role="Cliente" EntitySet="Personas" />
+            <End Role="CuentaCorriente" EntitySet="CuentasCorrientes" />
+          </AssociationSet>
+          <AssociationSet Name="DetalleVentaDeVenta" Association="IndustriaEscuelaDBModel.DetalleVentaDeVenta">
+            <End Role="Venta" EntitySet="Ventas" />
+            <End Role="DetalleVenta" EntitySet="DetallesVentas" />
+          </AssociationSet>
+          <AssociationSet Name="DetalleVentaProducto" Association="IndustriaEscuelaDBModel.DetalleVentaProducto">
+            <End Role="DetalleVenta" EntitySet="DetallesVentas" />
+            <End Role="Producto" EntitySet="Productos" />
+          </AssociationSet>
+          <AssociationSet Name="InsumosDelProducto" Association="IndustriaEscuelaDBModel.InsumosDelProducto">
+            <End Role="Producto" EntitySet="Productos" />
+            <End Role="Insumo" EntitySet="Insumos" />
+          </AssociationSet>
+          <AssociationSet Name="UsuarioVenta" Association="IndustriaEscuelaDBModel.UsuarioVenta">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Venta" EntitySet="Ventas" />
+          </AssociationSet>
+          <AssociationSet Name="ClienteCompra" Association="IndustriaEscuelaDBModel.ClienteCompra">
+            <End Role="Cliente" EntitySet="Personas" />
+            <End Role="Venta" EntitySet="Ventas" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="20" />
+          <Property Name="Contrasenia" Type="String" Nullable="false" MaxLength="20" />
+          <Property Name="Habilitado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Rol" Relationship="IndustriaEscuelaDBModel.RolesDeUsuario" FromRole="Usuario" ToRole="Rol" />
+          <Property Name="RolId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ventas" Relationship="IndustriaEscuelaDBModel.UsuarioVenta" FromRole="Usuario" ToRole="Venta" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" />
+          <NavigationProperty Name="Usuarios" Relationship="IndustriaEscuelaDBModel.RolesDeUsuario" FromRole="Rol" ToRole="Usuario" />
+          <NavigationProperty Name="Acciones" Relationship="IndustriaEscuelaDBModel.AccionesPorRol" FromRole="Rol" ToRole="Accion" />
+        </EntityType>
+        <Association Name="RolesDeUsuario">
+          <End Type="IndustriaEscuelaDBModel.Rol" Role="Rol" Multiplicity="1" />
+          <End Type="IndustriaEscuelaDBModel.Usuario" Role="Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="RolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Accion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" />
+          <NavigationProperty Name="Roles" Relationship="IndustriaEscuelaDBModel.AccionesPorRol" FromRole="Accion" ToRole="Rol" />
+        </EntityType>
+        <EntityType Name="Persona" Abstract="true">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" />
+          <Property Name="Dni" Type="String" Nullable="true" MaxLength="10" />
+          <Property Name="Domicilio" Type="String" Nullable="true" MaxLength="100" />
+          <Property Name="Telefono" Type="String" Nullable="true" MaxLength="15" />
+          <Property Name="Email" Type="String" Nullable="true" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Cliente" BaseType="IndustriaEscuelaDBModel.Persona">
+          <Property Name="Habilitado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CuentaCorriente" Relationship="IndustriaEscuelaDBModel.CuentaCorrienteDelCliente" FromRole="Cliente" ToRole="CuentaCorriente" />
+          <NavigationProperty Name="Compras" Relationship="IndustriaEscuelaDBModel.ClienteCompra" FromRole="Cliente" ToRole="Venta" />
+        </EntityType>
+        <EntityType Name="CuentaCorriente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoMovimiento" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="Monto" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="true" MaxLength="200" />
+          <NavigationProperty Name="Cliente" Relationship="IndustriaEscuelaDBModel.CuentaCorrienteDelCliente" FromRole="CuentaCorriente" ToRole="Cliente" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" />
+          <Property Name="PrecioUnitario" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="UnidadMedida" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="Stock" Type="Decimal" Nullable="true" Precision="6" Scale="2" />
+          <Property Name="Habilitado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DetalleVenta" Relationship="IndustriaEscuelaDBModel.DetalleVentaProducto" FromRole="Producto" ToRole="DetalleVenta" />
+          <NavigationProperty Name="Insumos" Relationship="IndustriaEscuelaDBModel.InsumosDelProducto" FromRole="Producto" ToRole="Insumo" />
+        </EntityType>
+        <EntityType Name="Venta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" />
+          <Property Name="Total" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+          <NavigationProperty Name="Detalles" Relationship="IndustriaEscuelaDBModel.DetalleVentaDeVenta" FromRole="Venta" ToRole="DetalleVenta" />
+          <NavigationProperty Name="Usuario" Relationship="IndustriaEscuelaDBModel.UsuarioVenta" FromRole="Venta" ToRole="Usuario" />
+          <Property Name="UsuarioId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="IndustriaEscuelaDBModel.ClienteCompra" FromRole="Venta" ToRole="Cliente" />
+          <Property Name="ClienteId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Insumo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" />
+          <Property Name="Stock" Type="Decimal" Nullable="true" Precision="6" Scale="2" />
+          <Property Name="Habilitado" Type="Boolean" Nullable="false" />
+          <Property Name="UnidadMedida" Type="String" Nullable="false" MaxLength="50" />
+          <NavigationProperty Name="Producto" Relationship="IndustriaEscuelaDBModel.InsumosDelProducto" FromRole="Insumo" ToRole="Producto" />
+          <Property Name="ProductoId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DetalleVenta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cantidad" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+          <NavigationProperty Name="Venta" Relationship="IndustriaEscuelaDBModel.DetalleVentaDeVenta" FromRole="DetalleVenta" ToRole="Venta" />
+          <Property Name="VentaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Producto" Relationship="IndustriaEscuelaDBModel.DetalleVentaProducto" FromRole="DetalleVenta" ToRole="Producto" />
+        </EntityType>
+        <Association Name="AccionesPorRol">
+          <End Type="IndustriaEscuelaDBModel.Rol" Role="Rol" Multiplicity="*" />
+          <End Type="IndustriaEscuelaDBModel.Accion" Role="Accion" Multiplicity="*" />
+        </Association>
+        <Association Name="CuentaCorrienteDelCliente">
+          <End Type="IndustriaEscuelaDBModel.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="IndustriaEscuelaDBModel.CuentaCorriente" Role="CuentaCorriente" Multiplicity="1" />
+        </Association>
+        <Association Name="DetalleVentaDeVenta">
+          <End Type="IndustriaEscuelaDBModel.Venta" Role="Venta" Multiplicity="1" />
+          <End Type="IndustriaEscuelaDBModel.DetalleVenta" Role="DetalleVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetalleVenta">
+              <PropertyRef Name="VentaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DetalleVentaProducto">
+          <End Type="IndustriaEscuelaDBModel.DetalleVenta" Role="DetalleVenta" Multiplicity="1" />
+          <End Type="IndustriaEscuelaDBModel.Producto" Role="Producto" Multiplicity="0..1" />
+        </Association>
+        <Association Name="InsumosDelProducto">
+          <End Type="IndustriaEscuelaDBModel.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="IndustriaEscuelaDBModel.Insumo" Role="Insumo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Insumo">
+              <PropertyRef Name="ProductoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UsuarioVenta">
+          <End Type="IndustriaEscuelaDBModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="IndustriaEscuelaDBModel.Venta" Role="Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ClienteCompra">
+          <End Type="IndustriaEscuelaDBModel.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="IndustriaEscuelaDBModel.Venta" Role="Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="IndustriaEscuelaDBModelStoreContainer" CdmEntityContainer="IndustriaEscuelaDBModelContainer">
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="IsTypeOf(IndustriaEscuelaDBModel.Usuario)">
+        <MappingFragment StoreEntitySet="Usuarios">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
+          <ScalarProperty Name="Habilitado" ColumnName="Habilitado" />
+          <ScalarProperty Name="RolId" ColumnName="RolId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="IsTypeOf(IndustriaEscuelaDBModel.Rol)">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Acciones">
+      <EntityTypeMapping TypeName="IsTypeOf(IndustriaEscuelaDBModel.Accion)">
+        <MappingFragment StoreEntitySet="Acciones">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Personas">
+      <EntityTypeMapping TypeName="IsTypeOf(IndustriaEscuelaDBModel.Persona)">
+        <MappingFragment StoreEntitySet="Personas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Dni" ColumnName="Dni" />
+          <ScalarProperty Name="Domicilio" ColumnName="Domicilio" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(IndustriaEscuelaDBModel.Cliente)">
+        <MappingFragment StoreEntitySet="Personas_Cliente">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Habilitado" ColumnName="Habilitado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CuentasCorrientes">
+      <EntityTypeMapping TypeName="IsTypeOf(IndustriaEscuelaDBModel.CuentaCorriente)">
+        <MappingFragment StoreEntitySet="CuentasCorrientes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TipoMovimiento" ColumnName="TipoMovimiento" />
+          <ScalarProperty Name="Monto" ColumnName="Monto" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Productos">
+      <EntityTypeMapping TypeName="IsTypeOf(IndustriaEscuelaDBModel.Producto)">
+        <MappingFragment StoreEntitySet="Productos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="PrecioUnitario" ColumnName="PrecioUnitario" />
+          <ScalarProperty Name="UnidadMedida" ColumnName="UnidadMedida" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+          <ScalarProperty Name="Habilitado" ColumnName="Habilitado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ventas">
+      <EntityTypeMapping TypeName="IsTypeOf(IndustriaEscuelaDBModel.Venta)">
+        <MappingFragment StoreEntitySet="Ventas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+          <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Insumos">
+      <EntityTypeMapping TypeName="IsTypeOf(IndustriaEscuelaDBModel.Insumo)">
+        <MappingFragment StoreEntitySet="Insumos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+          <ScalarProperty Name="Habilitado" ColumnName="Habilitado" />
+          <ScalarProperty Name="UnidadMedida" ColumnName="UnidadMedida" />
+          <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetallesVentas">
+      <EntityTypeMapping TypeName="IsTypeOf(IndustriaEscuelaDBModel.DetalleVenta)">
+        <MappingFragment StoreEntitySet="DetallesVentas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="VentaId" ColumnName="VentaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AccionesPorRol" TypeName="IndustriaEscuelaDBModel.AccionesPorRol" StoreEntitySet="AccionesPorRol">
+      <EndProperty Name="Rol">
+        <ScalarProperty Name="Id" ColumnName="Roles_Id" />
+      </EndProperty>
+      <EndProperty Name="Accion">
+        <ScalarProperty Name="Id" ColumnName="Acciones_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CuentaCorrienteDelCliente" TypeName="IndustriaEscuelaDBModel.CuentaCorrienteDelCliente" StoreEntitySet="Personas_Cliente">
+      <EndProperty Name="CuentaCorriente">
+        <ScalarProperty Name="Id" ColumnName="CuentaCorriente_Id" />
+      </EndProperty>
+      <EndProperty Name="Cliente">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DetalleVentaProducto" TypeName="IndustriaEscuelaDBModel.DetalleVentaProducto" StoreEntitySet="Productos">
+      <EndProperty Name="DetalleVenta">
+        <ScalarProperty Name="Id" ColumnName="DetalleVenta_Id" />
+      </EndProperty>
+      <EndProperty Name="Producto">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
